@@ -11,7 +11,8 @@ function checkPassword(plainPassword,encryptedPassword){
         throw error;
     }
 }
-
+        
+//creating jwt token by using input:{id,email}
 function createToken(input){
     try {
         return jwt.sign(input,JWT_SECRET,{expiresIn:JWT_EXPIRY});
@@ -21,7 +22,18 @@ function createToken(input){
     }
 }
 
+//for a corresponding jwt_secret 
+function verifyToken(token){
+    try {
+        return jwt.verify(token,JWT_SECRET);
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports={
     checkPassword,
-    createToken
+    createToken,
+    verifyToken
 }
