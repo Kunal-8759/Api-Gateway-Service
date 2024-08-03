@@ -11,3 +11,8 @@
 5.  if password is matched then will create the jwt token and return the jwt token to the user
 6. 
 
+# Authentication while fetching api
+1. added a middleWare isAuthenticated before the controller of the api
+2. we will verify the token using jwt.verify(token,JWT_SECRET) it returns {id,email}
+3. will fetch the user from the id (because there might be chance the user is deleted the profile and then try to login using that token)
+4.  and we will set the req.user=id for the authentication of api and then call next() to call the controller 

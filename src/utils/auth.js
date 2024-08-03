@@ -22,7 +22,6 @@ function createToken(input){
     }
 }
 
-//for a corresponding jwt_secret 
 function verifyToken(token){
     try {
         return jwt.verify(token,JWT_SECRET);
