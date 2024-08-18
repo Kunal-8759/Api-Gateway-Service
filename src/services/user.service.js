@@ -1,15 +1,23 @@
 const { StatusCodes } = require('http-status-codes');
-const {UserRepository}=require('../repositories');
+const {UserRepository , RoleRepository}=require('../repositories');
 const AppError = require('../utils/errors/app.error');
 const { checkPassword, createToken, verifyToken } = require('../utils/auth');
+const {USER_ROLES_ENUMS} = require('../utils/common/enum');
+const {ADMIN,CUSTOMER,FLIGHT_COMPANY} = USER_ROLES_ENUMS;
 
 const userRepo=new UserRepository();
+const roleRepo = new RoleRepository();
+
+
 
 //this is for signup process
 //data :{email ,password}
 async function create(data){
     try {
-        const user =await userRepo.create(data);
+        const user =await userRepo.create(data);//create the entry in the User table and gives the return the same data
+        const role = await roleRepo.getRoleByName(CUSTOMER);//it will fetch the customer role from the Role Model
+        user.addRole(role);//it will add entry and create many-to-many assoc in the User_Roles with the given userId and RoleId
+
         return user;
     } catch (error) {
         console.log(error);
