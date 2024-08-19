@@ -44,10 +44,35 @@ async function signin(req,res){
             error:error,
             data:{}
         });
+        
+    }
+}
+
+async function addRoleToUser(req,res){
+    try {
+        const user=await userService.addRoleToUser({
+            role:req.body.role,
+            id : req.body.id
+        });
+        return res.status(StatusCodes.CREATED).json({
+            success:true,
+            message:'user registered successfully',
+            error:{},
+            data:user
+        });
+
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success:false,
+            message:'something went wrong',
+            error:error,
+            data:{}
+        });
     }
 }
 
 module.exports={
     signup,
-    signin
+    signin,
+    addRoleToUser
 }
