@@ -71,8 +71,28 @@ async function addRoleToUser(req,res){
     }
 }
 
+async function getUserById(req,res){
+    try {
+        const user = await userService.getUserById(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success:true,
+            message:'successfully fetched',
+            error:{},
+            data:user
+        });
+    } catch (error) {
+        return res.status(error.statusCode).json({
+            success:false,
+            message:'something went wrong',
+            error:error,
+            data:{}
+        });
+    }
+}
+
 module.exports={
     signup,
     signin,
-    addRoleToUser
+    addRoleToUser,
+    getUserById
 }

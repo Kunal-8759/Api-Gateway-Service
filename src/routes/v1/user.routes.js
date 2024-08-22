@@ -8,4 +8,6 @@ userRouter.post('/signin',validateAuthRequest,userController.signin);
 
 userRouter.post('/role',checkAuth,isAdmin,userController.addRoleToUser);
 
+userRouter.get('/:id',userController.getUserById);
+
 module.exports=userRouter;

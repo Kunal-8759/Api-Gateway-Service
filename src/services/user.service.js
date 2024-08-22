@@ -113,10 +113,24 @@ async function isAdmin(id){
     }
 }
 
+
+async function getUserById(id){
+    try {
+        const user = await userRepo.get(id);
+        return user;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError('the user you searched is not present',error.statusCode);
+        }
+        throw new AppError('something went wrong ',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 module.exports={
     create,
     signin,
     isAuthenticated,
     addRoleToUser,
-    isAdmin
+    isAdmin,
+    getUserById
 }
