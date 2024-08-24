@@ -17,6 +17,10 @@ module.exports = {
           isEmail:true
         }
       },
+      name : {
+        type : Sequelize.STRING,
+        allowNull:false
+      },
       password: {
         type: Sequelize.STRING,
         allowNull: false,

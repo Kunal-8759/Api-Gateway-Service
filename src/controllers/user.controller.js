@@ -5,7 +5,8 @@ async function signup(req,res){
     try {
         const user=await userService.create({
             email:req.body.email,
-            password:req.body.password
+            password:req.body.password,
+            name : req.body.name
         })
 
         return res.status(StatusCodes.CREATED).json({
